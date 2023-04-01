@@ -1,0 +1,57 @@
+<h2>My Person Types</h2>
+
+<div>
+  <form (ngSubmit)="add()" #form="ngForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.name"
+        name="name"
+        #name="ngModel"
+      />
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors?.['required']">
+          Name is required.
+        </div>
+      </div>
+    </div>
+   
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.description"
+        name="description"
+        #description="ngModel"
+      />
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+        <div *ngIf="description.errors?.['required']">
+          Description is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button class="add-button" >
+        Add Person Type
+      </button>
+    </div>
+  </form>
+</div>
+
+<ul class="person-type-list">
+  <li *ngFor="let personType of personTypes">
+    <a routerLink="/persontypes/detail/{{personType.personTypeId}}">
+      <span class="badge">{{personType.personTypeId}}</span> {{personType.name}}
+    </a>
+    <button type="button" class="delete" title="delete person type"
+      (click)="delete(personType)">x</button>
+  </li>
+</ul>

@@ -1,0 +1,144 @@
+<h2>My Persons</h2>
+
+<div>
+  <form (ngSubmit)="add()" #form="ngForm">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.firstName"
+        name="firstName"
+        #firstName="ngModel"
+      />
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+        <div *ngIf="firstName.errors?.['required']">
+          First Name is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.lastName"
+        name="lastName"
+        #lastName="ngModel"
+      />
+      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+        <div *ngIf="lastName.errors?.['required']">
+          Last Name is required.
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="emailAddress">Email Address</label>
+      <input
+        type="text"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.emailAddress"
+        name="emailAddress"
+        #emailAddress="ngModel"
+      />
+      <div *ngIf="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)" class="alert alert-danger">
+        <div *ngIf="emailAddress.errors?.['required']">
+          Email Address is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        type="text"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.phoneNumber"
+        name="phoneNumber"
+        #phoneNumber="ngModel"
+      />
+      <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="alert alert-danger">
+        <div *ngIf="phoneNumber.errors?.['required']">
+          Phone Number is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="birthDate">Birth Date</label>
+      <input
+        type="text"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.birthDate"
+        name="birthDate"
+        #birthDate="ngModel"
+      />
+      <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)" class="alert alert-danger">
+        <div *ngIf="birthDate.errors?.['required']">
+          Birth Date is required.
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-group">
+      <label for="personTypeId">Person Type Id</label>
+      <input
+        type="number"
+        class="form-control"
+       
+        required
+        [(ngModel)]="model.personTypeId"
+        name="personTypeId"
+        #personTypeId="ngModel"
+      />
+      <div *ngIf="personTypeId.invalid && (personTypeId.dirty || personTypeId.touched)" class="alert alert-danger">
+        <div *ngIf="personTypeId.errors?.['required']">
+          Person Type ID is required.
+        </div>
+      </div>
+    </div> -->
+    <div class="form-group">
+      <label for="personTypeId">Person Type</label>
+      <select class="form-control" id="personTypeId" required
+      style="appearance: auto;"
+      [(ngModel)]="model.personTypeId"
+      name="personTypeId"
+      #personTypeId="ngModel">
+        <option *ngFor="let personType of personTypes" [value]="personType.personTypeId">{{personType.name}}</option>
+      </select>
+    </div>
+    
+   
+   
+    <div class="form-group">
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button class="add-button" >
+        Add Person
+      </button>
+    </div>
+  </form>
+</div>
+
+<ul class="person-list">
+  <li *ngFor="let person of persons">
+    <a routerLink="/persons/detail/{{ person.personId }}">
+      <span class="badge">{{ person.personId }}</span> {{ person.firstName }} {{person.lastName}}
+    </a>
+    <button
+      type="button"
+      class="delete"
+      title="delete person"
+      (click)="delete(person)"
+    >
+      x
+    </button>
+  </li>
+</ul>
